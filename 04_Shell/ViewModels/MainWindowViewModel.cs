@@ -18,6 +18,7 @@ namespace _04_Shell.ViewModels
         {
             public string Icon { get; set; }
             public string ViewName { get; set; }
+            public string MenuName { get; set; }
         }
         private ObservableCollection<MenuBar> _menuBars;
 
@@ -32,8 +33,8 @@ namespace _04_Shell.ViewModels
         }
         private void CreateMenuBars()
         {
-            MenuBars= new ObservableCollection<MenuBar>();
-            MenuBars.Add(new MenuBar { Icon = "HomeOutline", ViewName = "1" });
+            MenuBars = new ObservableCollection<MenuBar>();
+            MenuBars.Add(new MenuBar { Icon = "Factory", MenuName = "车间视图", ViewName = "1" });
             MenuBars.Add(new MenuBar { Icon = "HomeOutline", ViewName = "1" });
             MenuBars.Add(new MenuBar { Icon = "HomeOutline", ViewName = "1" });
             MenuBars.Add(new MenuBar { Icon = "HomeOutline", ViewName = "1" });

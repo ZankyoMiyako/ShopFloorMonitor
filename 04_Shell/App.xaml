@@ -21,8 +21,10 @@
                             <Grid>
                                 <Border x:Name="ItemBorder"
                                         Background="Transparent"
-                                        CornerRadius="5"
-                                        Margin="2" />
+                                        CornerRadius="15"
+                                        Margin="2" 
+                                        Width="50"
+                                        Height="50"/>
                                 <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center" />
                             </Grid>
@@ -51,8 +53,8 @@
                         <ControlTemplate TargetType="ToolTip">
                             <Grid>
                                 <Border Background="#1a237e"
-                                        MinHeight="25"
-                                        MinWidth="60"
+                                        MinHeight="40"
+                                        MinWidth="100"
                                         CornerRadius="10" />
                                 <ContentPresenter HorizontalAlignment="Center"
                                                   VerticalAlignment="Center" />
