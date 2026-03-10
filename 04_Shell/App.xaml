@@ -18,11 +18,11 @@
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="ListBoxItem">
-                            <Grid >
+                            <Grid>
                                 <Border x:Name="ItemBorder"
-                                        Background="Transparent" 
+                                        Background="Transparent"
                                         CornerRadius="5"
-                                        Margin="2"/>
+                                        Margin="2" />
                                 <ContentPresenter VerticalAlignment="Center"
                                                   HorizontalAlignment="Center" />
                             </Grid>
@@ -40,6 +40,23 @@
                                             Value="#000051" />
                                 </Trigger>
                             </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Key="MenuBarTooltipStyle"
+                   TargetType="ToolTip">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ToolTip">
+                            <Grid>
+                                <Border Background="#1a237e"
+                                        MinHeight="25"
+                                        MinWidth="60"
+                                        CornerRadius="10" />
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center" />
+                            </Grid>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
