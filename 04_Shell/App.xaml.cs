@@ -1,4 +1,4 @@
-﻿using _04_Shell.Veiws;
+﻿using _04_Shell.Views;
 using System.Configuration;
 using System.Data;
 using System.Windows;

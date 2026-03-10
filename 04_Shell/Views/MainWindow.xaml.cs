@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace _04_Shell.Veiws
+namespace _04_Shell.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
