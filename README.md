@@ -1,5 +1,5 @@
 # ShopFloorMonitor
-
+(刚起步,并非已经完成的项目)
 一个基于WPF的CNC车间监控系统，支持Modbus TCP通信，实时显示设备状态。
 
 ## 功能特点
