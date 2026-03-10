@@ -9,11 +9,22 @@ namespace _04_Shell.ViewModels
 {
     internal class MainWindowViewModel : BindableBase
     {
-        public MainWindowViewModel()
+        private IRegionManager _regionManager;
+        public DelegateCommand<MenuBar> NavigateCommand { get; set; }
+
+        public MainWindowViewModel(IRegionManager regionManager)
         {
+            _regionManager = regionManager;
+            NavigateCommand = new DelegateCommand<MenuBar>(Navigate);
             CreateMenuBars();
         }
-
+        private void Navigate(MenuBar bar)
+        {
+            if (bar == null || string.IsNullOrEmpty(bar.ViewName))
+                return;
+            _regionManager.Regions["MainWindowRegion"].RequestNavigate(bar.ViewName);
+        }
+        #region 菜单栏
         public class MenuBar
         {
             public string Icon { get; set; }
@@ -34,13 +45,14 @@ namespace _04_Shell.ViewModels
         private void CreateMenuBars()
         {
             MenuBars = new ObservableCollection<MenuBar>();
-            MenuBars.Add(new MenuBar { Icon = "Factory", MenuName = "车间视图", ViewName = "1" });
-            MenuBars.Add(new MenuBar { Icon = "HomeOutline", ViewName = "1" });
+            MenuBars.Add(new MenuBar { Icon = "Factory", MenuName = "车间视图", ViewName = "WorkshopView" });
+            MenuBars.Add(new MenuBar { Icon = "HomeOutline", MenuName = "测试视图", ViewName = "TestView" });
             MenuBars.Add(new MenuBar { Icon = "HomeOutline", ViewName = "1" });
             MenuBars.Add(new MenuBar { Icon = "HomeOutline", ViewName = "1" });
             MenuBars.Add(new MenuBar { Icon = "HomeOutline", ViewName = "1" });
             MenuBars.Add(new MenuBar { Icon = "HomeOutline", ViewName = "1" });
         }
 
+        #endregion
     }
 }

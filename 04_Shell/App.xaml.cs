@@ -1,4 +1,6 @@
-﻿using _04_Shell.Views;
+﻿using _03_Modules.ViewModels;
+using _03_Modules.Views;
+using _04_Shell.Views;
 using System.Configuration;
 using System.Data;
 using System.Windows;
@@ -16,7 +18,8 @@ namespace _04_Shell
         }
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+            containerRegistry.RegisterForNavigation<WorkshopView, WorkshopViewModel>();
+            containerRegistry.RegisterForNavigation<TestView,TestViewModel>();
         }
     }
 
