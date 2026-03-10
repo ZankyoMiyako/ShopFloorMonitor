@@ -3,10 +3,49 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:_04_Shell"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
+        Title="MainWindow"
+        Height="450"
+        Width="800">
+    <WindowChrome.WindowChrome>
+        <WindowChrome UseAeroCaptionButtons="False" CaptionHeight="5"/>
+    </WindowChrome.WindowChrome>
+    <Grid Background="AliceBlue">
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Border Grid.ColumnSpan="2"
+                    Background="White"
+                    CornerRadius="15" />
+            <md:ColorZone Grid.Column="0"
+                          Margin="5"
+                          Mode="PrimaryDark"
+                          CornerRadius="15"
+                          VerticalAlignment="Stretch">
+                <ListBox ItemsSource="{Binding MenuBars}"
+                         HorizontalAlignment="Center"
+                         Foreground="White"
+                         ItemContainerStyle="{StaticResource MenuBarStyle}"
+                         Margin="5">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="5"
+                                        ToolTip="{Binding ViewName}"
+                                        >
+                                <md:PackIcon Kind="{Binding Icon}"
+                                             Width="22"
+                                             Height="22">
+                                </md:PackIcon>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </md:ColorZone>
+        </Grid>
     </Grid>
 </Window>
