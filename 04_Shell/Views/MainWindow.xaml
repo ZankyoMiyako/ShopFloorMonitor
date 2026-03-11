@@ -13,8 +13,8 @@
         Width="1280">
     <WindowChrome.WindowChrome>
         <WindowChrome UseAeroCaptionButtons="False"
-                      CaptionHeight="5" 
-                      CornerRadius="15"/>
+                      CaptionHeight="5"
+                      CornerRadius="15" />
     </WindowChrome.WindowChrome>
     <Grid Background="AliceBlue">
         <Grid Margin="10">
@@ -37,20 +37,23 @@
                          Margin="0,30">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal"
-                                        Margin="0,15"
-                                        Background="Transparent">
-                                <StackPanel.ToolTip>
+                            <Grid Margin="0,15"
+                                  Background="Transparent"
+                                  Width="50"
+                                  Height="50">
+                                <Grid.ToolTip>
                                     <ToolTip Content="{Binding MenuName}"
                                              Placement="Right"
                                              HorizontalOffset="25"
                                              VerticalOffset="-5"
                                              Style="{StaticResource MenuBarTooltipStyle}"
                                              Foreground="White" />
-                                </StackPanel.ToolTip>
+                                </Grid.ToolTip>
                                 <md:PackIcon Kind="{Binding Icon}"
                                              Width="30"
-                                             Height="30">
+                                             Height="30"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center">
                                 </md:PackIcon>
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseLeftButtonUp">
@@ -58,7 +61,7 @@
                                                                CommandParameter="{Binding }" />
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
-                            </StackPanel>
+                            </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -81,13 +84,13 @@
                             Margin="3,0"
                             x:Name="CloseBtn"
                             Style="{StaticResource MaterialDesignFlatButton}">
-                        <md:PackIcon Kind="WindowClose"/>
+                        <md:PackIcon Kind="WindowClose" />
                     </Button>
                     <Button DockPanel.Dock="Right"
                             Margin="3,0"
                             x:Name="MaxBtn"
                             Style="{StaticResource MaterialDesignFlatButton}">
-                        <md:PackIcon Kind="WindowMaximize"/>
+                        <md:PackIcon Kind="WindowMaximize" />
                     </Button>
                     <Button DockPanel.Dock="Right"
                             Margin="3,0"
@@ -96,7 +99,8 @@
                         <md:PackIcon Kind="WindowMinimize" />
                     </Button>
                 </DockPanel>
-                <ContentControl Grid.Row="1" prism:RegionManager.RegionName="MainWindowRegion"/>
+                <ContentControl Grid.Row="1"
+                                prism:RegionManager.RegionName="MainWindowRegion" />
             </Grid>
         </Grid>
     </Grid>
