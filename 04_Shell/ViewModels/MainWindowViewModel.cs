@@ -1,4 +1,5 @@
-﻿using _01_Core.Models;
+﻿using _01_Core.Interfaces;
+using _01_Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,13 +9,17 @@ using System.Threading.Tasks;
 
 namespace _04_Shell.ViewModels
 {
-    internal class MainWindowViewModel : BindableBase
+    internal class MainWindowViewModel : BindableBase,IConfigureService
     {
         public MainWindowViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
             NavigateCommand = new DelegateCommand<MenuBar>(Navigate);
+        }
+        public void Configure()
+        {
             CreateMenuBars();
+            _regionManager.Regions["MainWindowRegion"].RequestNavigate("WorkshopView");
         }
         #region 导航
         private IRegionManager _regionManager;
