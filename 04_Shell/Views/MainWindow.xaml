@@ -13,10 +13,9 @@
         Width="1280">
     <WindowChrome.WindowChrome>
         <WindowChrome UseAeroCaptionButtons="False"
-                      CaptionHeight="5"
-                      CornerRadius="15" />
+                      CaptionHeight="5" />
     </WindowChrome.WindowChrome>
-    <Grid Background="AliceBlue">
+    <Grid Background="#34409b">
         <Grid Margin="10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="90" />
@@ -24,7 +23,7 @@
             </Grid.ColumnDefinitions>
             <Border Grid.ColumnSpan="2"
                     Background="White"
-                    CornerRadius="15" />
+                    CornerRadius="25" />
             <md:ColorZone Grid.Column="0"
                           Margin="10,5"
                           Mode="PrimaryDark"
