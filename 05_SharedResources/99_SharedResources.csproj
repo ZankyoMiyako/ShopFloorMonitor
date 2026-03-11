@@ -2,10 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
-    <RootNamespace>_05_SharedResources</RootNamespace>
+    <RootNamespace>_99_SharedResources</RootNamespace>
     <UseWPF>true</UseWPF>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\01_Core\01_Core.csproj" />
+  </ItemGroup>
 
 </Project>
