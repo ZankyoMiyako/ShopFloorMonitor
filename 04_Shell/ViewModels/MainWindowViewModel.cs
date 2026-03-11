@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _01_Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,28 +10,23 @@ namespace _04_Shell.ViewModels
 {
     internal class MainWindowViewModel : BindableBase
     {
-        private IRegionManager _regionManager;
-        public DelegateCommand<MenuBar> NavigateCommand { get; set; }
-
         public MainWindowViewModel(IRegionManager regionManager)
         {
             _regionManager = regionManager;
             NavigateCommand = new DelegateCommand<MenuBar>(Navigate);
             CreateMenuBars();
         }
+        #region 导航
+        private IRegionManager _regionManager;
+        public DelegateCommand<MenuBar> NavigateCommand { get; set; }
         private void Navigate(MenuBar bar)
         {
             if (bar == null || string.IsNullOrEmpty(bar.ViewName))
                 return;
             _regionManager.Regions["MainWindowRegion"].RequestNavigate(bar.ViewName);
         }
+        #endregion
         #region 菜单栏
-        public class MenuBar
-        {
-            public string Icon { get; set; }
-            public string ViewName { get; set; }
-            public string MenuName { get; set; }
-        }
         private ObservableCollection<MenuBar> _menuBars;
 
         public ObservableCollection<MenuBar> MenuBars

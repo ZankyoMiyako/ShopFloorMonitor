@@ -18,6 +18,7 @@
     <ProjectReference Include="..\01_Core\01_Core.csproj" />
     <ProjectReference Include="..\02_Infrastructure\02_Infrastructure.csproj" />
     <ProjectReference Include="..\03_Modules\03_Modules.csproj" />
+    <ProjectReference Include="..\05_SharedResources\99_SharedResources.csproj" />
   </ItemGroup>
 
 </Project>
