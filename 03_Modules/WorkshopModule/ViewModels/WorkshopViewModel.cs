@@ -33,8 +33,7 @@ namespace _03_Modules.ViewModels
             get { return _devices; }
             set
             {
-                _devices = value;
-                RaisePropertyChanged();
+                SetProperty(ref _devices, value);
             }
         }
 

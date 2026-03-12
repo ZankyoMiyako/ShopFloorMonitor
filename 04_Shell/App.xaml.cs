@@ -1,4 +1,6 @@
 ﻿using _01_Core.Interfaces;
+using _03_Modules.DebuggerModule.ViewModels;
+using _03_Modules.DebuggerModule.Views;
 using _03_Modules.ViewModels;
 using _03_Modules.Views;
 using _04_Shell.Views;
@@ -30,6 +32,7 @@ namespace _04_Shell
         {
             containerRegistry.RegisterForNavigation<WorkshopView, WorkshopViewModel>();
             containerRegistry.RegisterForNavigation<TestView, TestViewModel>();
+            containerRegistry.RegisterForNavigation<DebuggerView, DebuggerViewModel>();
         }
     }
 

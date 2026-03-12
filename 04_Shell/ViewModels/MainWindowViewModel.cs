@@ -39,8 +39,7 @@ namespace _04_Shell.ViewModels
             get { return _menuBars; }
             set
             {
-                _menuBars = value;
-                RaisePropertyChanged();
+                SetProperty(ref _menuBars, value);
             }
         }
         private void CreateMenuBars()
@@ -48,7 +47,7 @@ namespace _04_Shell.ViewModels
             MenuBars = new ObservableCollection<MenuBar>();
             MenuBars.Add(new MenuBar { Icon = "Factory", MenuName = "车间视图", ViewName = "WorkshopView" });
             MenuBars.Add(new MenuBar { Icon = "Connection", MenuName = "连接视图", ViewName = "TestView" });
-            MenuBars.Add(new MenuBar { Icon = "BugOutline", MenuName="调试视图",ViewName = "1" });
+            MenuBars.Add(new MenuBar { Icon = "BugOutline", MenuName="调试视图",ViewName = "DebuggerView" });
             MenuBars.Add(new MenuBar { Icon = "DatabaseOutline",MenuName="数据库视图",ViewName = "1" });
             MenuBars.Add(new MenuBar { Icon = "ChartLine",MenuName="趋势视图", ViewName = "1" });
         }
