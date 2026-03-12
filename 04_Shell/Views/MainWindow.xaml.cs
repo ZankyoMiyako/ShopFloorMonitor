@@ -20,6 +20,7 @@ namespace _04_Shell.Views
         {
             InitializeComponent();
             CloseBtn.Click += (e, s) => { this.Close(); };
+            ExitToApp.Click += (e, s) => { this.Close(); };
             MaxBtn.Click += (e, s) => { this.WindowState = (this.WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized); };
             MinBtn.Click += (e, s) => { this.WindowState = WindowState.Minimized; };
         }
