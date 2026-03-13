@@ -5,167 +5,177 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:_03_Modules.DebuggerModule.Views"
+             xmlns:prism="http://prismlibrary.com/"
              mc:Ignorable="d"
              d:DesignHeight="450"
              d:DesignWidth="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="auto" />
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition  Height="auto" />
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0"
-                  Margin="20,0">
+    <md:DrawerHost IsRightDrawerOpen="{Binding IsRightDrawerOpen}">
+        <md:DrawerHost.RightDrawerContent>
+            <ContentControl Content="{Binding RightDrawerContent}" Width="250"/>
+        </md:DrawerHost.RightDrawerContent>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
+                    <RowDefinition  Height="auto" />
                 </Grid.RowDefinitions>
-                <Border Background="#94B7EB"
-                        CornerRadius="15"
-                        Grid.RowSpan="3">
-                    <Border.Effect>
-                        <DropShadowEffect />
-                    </Border.Effect>
-                </Border>
                 <Grid Grid.Row="0"
-                      Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="通信设置"
-                               Foreground="White"
-                               FontSize="20"
-                               FontWeight="SemiBold"
-                               Grid.Column="0"
-                               Margin="0,0,10,0" />
-                    <Border Grid.Column="1"
-                            Height="1"
-                            Background="White" />
+                      Margin="20,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Border Background="#94B7EB"
+                            CornerRadius="15"
+                            Grid.RowSpan="3">
+                        <Border.Effect>
+                            <DropShadowEffect />
+                        </Border.Effect>
+                    </Border>
+                    <Grid Grid.Row="0"
+                          Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="通信设置"
+                                   Foreground="White"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"
+                                   Grid.Column="0"
+                                   Margin="0,0,10,0" />
+                        <Border Grid.Column="1"
+                                Height="1"
+                                Background="White" />
+                    </Grid>
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
+                                Margin="10,5">
+                        <TextBlock Text="协议类型"
+                                   FontSize="15"
+                                   Foreground="White"
+                                   Margin="0,0,30,0"
+                                   VerticalAlignment="Center" />
+                        <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
+                                     Content="TCP"
+                                     IsChecked="True"
+                                     MinWidth="0"
+                                     Width="61"
+                                     FontSize="15" 
+                                     Command="{Binding DrawerControl}"
+                                     CommandParameter="TCP"/>
+                        <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}"
+                                     Content="RTU"
+                                     MinWidth="0"
+                                     Width="61"
+                                     FontSize="15"
+                                     Command="{Binding DrawerControl}" 
+                                     CommandParameter="RTU"/>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2"
+                                Orientation="Horizontal"
+                                Margin="10,0,0,0">
+                        <TextBlock Text="连接状态"
+                                   Foreground="White"
+                                   FontSize="15"
+                                   VerticalAlignment="Center" />
+                        <ToggleButton Margin="30,10"
+                                      Width="50"
+                                      Height="30"
+                                      Style="{StaticResource MaterialDesignSwitchSecondaryToggleButton}" />
+                    </StackPanel>
                 </Grid>
-                <StackPanel Grid.Row="1"
-                            Orientation="Horizontal"
-                            Margin="10,5">
-                    <TextBlock Text="协议类型"
-                               FontSize="15"
-                               Foreground="White"
-                               Margin="0,0,30,0"
-                               VerticalAlignment="Center" />
-                    <RadioButton Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
-                                 Content="TCP"
-                                 IsChecked="True"
-                                 MinWidth="0"
-                                 Width="60"
-                                 FontSize="15" />
-                    <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}"
-                                 Content="RTU"
-                                 MinWidth="0"
-                                 Width="60"
-                                 FontSize="15" />
-                </StackPanel>
-                <StackPanel Grid.Row="2"
-                            Orientation="Horizontal"
-                            Margin="10,0,0,0">
-                    <TextBlock Text="连接状态"
-                               Foreground="White"
-                               FontSize="15"
-                               VerticalAlignment="Center" />
-                    <ToggleButton Margin="30,10"
-                                  Width="50"
-                                  Height="30"
-                                  Style="{StaticResource MaterialDesignSwitchSecondaryToggleButton}" />
-                </StackPanel>
-            </Grid>
-            <Grid Grid.Row="1"
-                  Margin="20">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <Border Background="#94B7EB"
-                        CornerRadius="15"
-                        Grid.RowSpan="6">
-                    <Border.Effect>
-                        <DropShadowEffect />
-                    </Border.Effect>
-                </Border>
-                <Grid Grid.Row="0"
-                      Margin="10">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="请求设置"
-                               FontSize="20"
-                               FontWeight="SemiBold"
-                               Foreground="White"
-                               Margin="0,0,10,0" />
-                    <Border Grid.Column="1"
-                            Height="1"
-                            Background="White" />
+                <Grid Grid.Row="1"
+                      Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Border Background="#94B7EB"
+                            CornerRadius="15"
+                            Grid.RowSpan="6">
+                        <Border.Effect>
+                            <DropShadowEffect />
+                        </Border.Effect>
+                    </Border>
+                    <Grid Grid.Row="0"
+                          Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="请求设置"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"
+                                   Foreground="White"
+                                   Margin="0,0,10,0" />
+                        <Border Grid.Column="1"
+                                Height="1"
+                                Background="White" />
+                    </Grid>
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
+                                Margin="10">
+                        <TextBlock Text="从站地址"
+                                   FontSize="15"
+                                   Foreground="White"
+                                   VerticalAlignment="Center" />
+                        <TextBox Margin="30,0,10,0"
+                                 Width="100" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="2"
+                                Orientation="Horizontal"
+                                Margin="10">
+                        <TextBlock Text="功能码"
+                                   FontSize="15"
+                                   Foreground="White"
+                                   VerticalAlignment="Center" />
+                        <ComboBox Margin="45,0,10,0"
+                                  Width="100" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="3"
+                                Orientation="Horizontal"
+                                Margin="10">
+                        <TextBlock Text="起始地址"
+                                   FontSize="15"
+                                   Foreground="White"
+                                   VerticalAlignment="Center" />
+                        <TextBox Margin="30,0,10,0"
+                                 Width="100" />
+                    </StackPanel>
+                    <StackPanel Grid.Row="4"
+                                Orientation="Horizontal"
+                                Margin="10">
+                        <TextBlock Text="数量"
+                                   FontSize="15"
+                                   Foreground="White"
+                                   VerticalAlignment="Center" />
+                        <TextBox Margin="60,0,0,0"
+                                 Width="100" />
+                    </StackPanel>
+                    <Button Grid.Row="5"
+                            Width="100"
+                            Content="生成看板"
+                            HorizontalAlignment="Right"
+                            Margin="10,10,10,20" />
                 </Grid>
-                <StackPanel Grid.Row="1"
-                            Orientation="Horizontal"
-                            Margin="10">
-                    <TextBlock Text="从站地址"
-                               FontSize="15"
-                               Foreground="White"
-                               VerticalAlignment="Center" />
-                    <TextBox Margin="30,0,10,0"
-                             Width="100" />
-                </StackPanel>
-                <StackPanel Grid.Row="2"
-                            Orientation="Horizontal"
-                            Margin="10">
-                    <TextBlock Text="功能码"
-                               FontSize="15"
-                               Foreground="White"
-                               VerticalAlignment="Center" />
-                    <ComboBox Margin="45,0,10,0"
-                              Width="100" />
-                </StackPanel>
-                <StackPanel Grid.Row="3"
-                            Orientation="Horizontal"
-                            Margin="10">
-                    <TextBlock Text="起始地址"
-                               FontSize="15"
-                               Foreground="White"
-                               VerticalAlignment="Center" />
-                    <TextBox Margin="30,0,10,0"
-                             Width="100" />
-                </StackPanel>
-                <StackPanel Grid.Row="4"
-                            Orientation="Horizontal"
-                            Margin="10">
-                    <TextBlock Text="数量"
-                               FontSize="15"
-                               Foreground="White"
-                               VerticalAlignment="Center" />
-                    <TextBox Margin="60,0,0,0"
-                             Width="100" />
-                </StackPanel>
-                <Button Grid.Row="5"
-                        Width="100"
-                        Content="生成看板"
-                        HorizontalAlignment="Right"
-                        Margin="10,10,10,20" />
+                <md:PackIcon Grid.Row="2"
+                             Kind="ShieldBugOutline"
+                             Width="150"
+                             Height="150"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center" />
             </Grid>
-            <md:PackIcon Grid.Row="2"
-                         Kind="ShieldBugOutline"
-                         Width="150"
-                         Height="150"
-                         VerticalAlignment="Center"
-                         HorizontalAlignment="Center"/>
         </Grid>
-    </Grid>
+    </md:DrawerHost>
 </UserControl>
