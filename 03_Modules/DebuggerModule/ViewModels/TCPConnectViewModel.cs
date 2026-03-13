@@ -1,4 +1,5 @@
-﻿using System;
+﻿using _01_Core.Events;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -9,9 +10,18 @@ namespace _03_Modules.DebuggerModule.ViewModels
 {
     internal class TCPConnectViewModel:BindableBase
     {
-        public TCPConnectViewModel()
+        private IEventAggregator _eventAggregator; 
+        public TCPConnectViewModel(IEventAggregator eventAggregator)
         {
-            Debug.WriteLine("启动成功");
+            _eventAggregator = eventAggregator;
+            DrawerControl = new DelegateCommand<string>(CloseDrawer);
         }
+
+        private void CloseDrawer(string obj)
+        {
+            _eventAggregator.GetEvent<DrawerControlEvent>().Publish(false);
+        }
+
+        public DelegateCommand<string> DrawerControl {  get; set; }
     }
 }

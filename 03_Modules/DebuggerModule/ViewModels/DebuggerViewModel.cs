@@ -1,4 +1,5 @@
-﻿using _03_Modules.DebuggerModule.Views;
+﻿using _01_Core.Events;
+using _03_Modules.DebuggerModule.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,17 @@ namespace _03_Modules.DebuggerModule.ViewModels
 {
     public class DebuggerViewModel : BindableBase
     {
-        public DebuggerViewModel()
+        private IEventAggregator _eventAggregator;
+        public DebuggerViewModel(IEventAggregator eventAggregator)
         {
+            _eventAggregator = eventAggregator;
             DrawerControl = new DelegateCommand<string>(OpenDrawer);
+            _eventAggregator.GetEvent<DrawerControlEvent>().Subscribe(args =>
+            {
+                IsRightDrawerOpen = args;
+            });
         }
-        #region 侧边栏开关and内容
+        #region 侧边栏开关and内容属性
         private bool _isRightDrawerOpen;
         public bool IsRightDrawerOpen
         {
@@ -37,6 +44,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
         private TCPConnectView _cachedTCPConnectView;
         private RTUConnectView _cachedRTUConnectView;
         #endregion
+        #region 侧边栏开关命令
         public DelegateCommand<string> DrawerControl { get; set; }
         private void OpenDrawer(string obj)
         {
@@ -47,7 +55,8 @@ namespace _03_Modules.DebuggerModule.ViewModels
                 case "RTU": LoadRTUConnectView(); break;
             }
         }
-
+        #endregion
+        #region 侧边栏内容加载
         private void LoadRTUConnectView()
         {
             if (_cachedRTUConnectView == null)
@@ -65,6 +74,6 @@ namespace _03_Modules.DebuggerModule.ViewModels
             }
             RightDrawerContent = _cachedTCPConnectView;
         }
-
+        #endregion
     }
 }
