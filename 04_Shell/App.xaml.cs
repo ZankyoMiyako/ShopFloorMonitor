@@ -1,4 +1,5 @@
 ﻿using _01_Core.Interfaces;
+using _03_Modules;
 using _03_Modules.DebuggerModule.ViewModels;
 using _03_Modules.DebuggerModule.Views;
 using _03_Modules.ViewModels;
@@ -30,9 +31,12 @@ namespace _04_Shell
         }
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<WorkshopView, WorkshopViewModel>();
-            containerRegistry.RegisterForNavigation<TestView, TestViewModel>();
-            containerRegistry.RegisterForNavigation<DebuggerView, DebuggerViewModel>();
+            
+        }
+        protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
+        {
+            base.ConfigureModuleCatalog(moduleCatalog);
+            moduleCatalog.AddModule<ModuleInit>();
         }
     }
 
