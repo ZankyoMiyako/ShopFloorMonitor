@@ -22,8 +22,6 @@ namespace _03_Modules
             containerRegistry.RegisterForNavigation<DebuggerView,DebuggerViewModel>();
             containerRegistry.RegisterForNavigation<TestView, TestViewModel>();
             containerRegistry.RegisterForNavigation<WorkshopView, WorkshopViewModel>();
-            containerRegistry.RegisterForNavigation<TCPConnectView, TCPConnectViewModel>();
-            containerRegistry.RegisterForNavigation<RTUConnectView, RTUConnectViewModel>();
         }
     }
 }
