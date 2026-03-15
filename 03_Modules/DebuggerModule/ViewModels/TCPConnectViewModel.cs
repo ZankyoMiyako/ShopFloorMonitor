@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace _03_Modules.DebuggerModule.ViewModels
 {
-    internal class TCPConnectViewModel:BindableBase
+    internal class TCPConnectViewModel : BindableBase
     {
-        private IEventAggregator _eventAggregator; 
+        private IEventAggregator _eventAggregator;
         public TCPConnectViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
@@ -19,7 +19,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
             _eventAggregator.GetEvent<ModbusConnectParamsRequestEvent>().Subscribe(args =>
             {
                 ConnectParams = args;
-            },ThreadOption.UIThread);
+            }, ThreadOption.UIThread);
         }
 
         private void CloseDrawer(string obj)
@@ -27,11 +27,12 @@ namespace _03_Modules.DebuggerModule.ViewModels
             _eventAggregator.GetEvent<DrawerControlEvent>().Publish(false);
             if (obj == "确定")
             {
+                ConnectParams.ModbusConnectType = ModbusConnectType.TCP;
                 _eventAggregator.GetEvent<ModbusConnectParamsUpdateEvent>().Publish(ConnectParams);
             }
         }
 
-        public DelegateCommand<string> DrawerControl {  get; set; }
+        public DelegateCommand<string> DrawerControl { get; set; }
 
         private ModbusConnectParams _connectParams;
         public ModbusConnectParams ConnectParams

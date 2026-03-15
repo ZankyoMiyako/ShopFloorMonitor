@@ -8,18 +8,18 @@ using System.Threading.Tasks;
 
 namespace _03_Modules.DebuggerModule.ViewModels
 {
-    internal class RTUConnectViewModel:BindableBase
+    internal class RTUConnectViewModel : BindableBase
     {
         private IEventAggregator _eventAggregator;
         public RTUConnectViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
-            RTUConnectOptions=new RTUConnectOptions();
+            RTUConnectOptions = new RTUConnectOptions();
             DrawerControl = new DelegateCommand<string>(CloseDrawer);
             _eventAggregator.GetEvent<ModbusConnectParamsRequestEvent>().Subscribe(args =>
             {
                 ConnectParams = args;
-            },ThreadOption.UIThread);
+            }, ThreadOption.UIThread);
         }
 
         private void CloseDrawer(string obj)
@@ -27,6 +27,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
             _eventAggregator.GetEvent<DrawerControlEvent>().Publish(false);
             if (obj == "确定")
             {
+                ConnectParams.ModbusConnectType = ModbusConnectType.RTU;
                 _eventAggregator.GetEvent<ModbusConnectParamsUpdateEvent>().Publish(ConnectParams);
             }
         }
