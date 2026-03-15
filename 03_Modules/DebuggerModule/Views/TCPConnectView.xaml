@@ -27,7 +27,8 @@
                            FontSize="20"
                            VerticalAlignment="Center"
                            Margin="10,0,30,0" />
-                <TextBox Width="100" />
+                <TextBox Width="100"
+                         Text="{Binding ConnectParams.IpAdress}"/>
             </StackPanel>
             <StackPanel Grid.Row="1"
                         Orientation="Horizontal"
@@ -36,7 +37,8 @@
                            FontSize="20"
                            VerticalAlignment="Center"
                            Margin="10,0,30,0" />
-                <TextBox Width="100" />
+                <TextBox Width="100"
+                         Text="{Binding ConnectParams.Port}"/>
             </StackPanel>
             <StackPanel Grid.Row="2"
                         Orientation="Horizontal"
@@ -45,7 +47,8 @@
                            FontSize="20"
                            VerticalAlignment="Center"
                            Margin="10,0" />
-                <TextBox Width="100" />
+                <TextBox Width="100"
+                         Text="{Binding ConnectParams.TimeOut}"/>
             </StackPanel>
             <StackPanel Grid.Row="3"
                         Orientation="Horizontal"
@@ -54,7 +57,8 @@
                            FontSize="20"
                            VerticalAlignment="Center"
                            Margin="10,0" />
-                <TextBox Width="100" />
+                <TextBox Width="100"
+                         Text="{Binding ConnectParams.RetryTime}"/>
             </StackPanel>
             <DockPanel Grid.Row="4"
                        LastChildFill="False">

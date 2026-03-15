@@ -1,4 +1,5 @@
 ﻿using _01_Core.Events;
+using _01_Core.Models;
 using _03_Modules.DebuggerModule.Views;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,26 @@ namespace _03_Modules.DebuggerModule.ViewModels
         {
             _eventAggregator = eventAggregator;
             DrawerControl = new DelegateCommand<string>(OpenDrawer);
+            ConnectParams = new ModbusConnectParams();
             _eventAggregator.GetEvent<DrawerControlEvent>().Subscribe(args =>
             {
                 IsRightDrawerOpen = args;
-            });
+            }, ThreadOption.UIThread);
+            _eventAggregator.GetEvent<ModbusConnectParamsUpdateEvent>().Subscribe(args =>
+            {
+                ConnectParams=args;
+            },ThreadOption.UIThread);
         }
+        private ModbusConnectParams _connectParams;
+        public ModbusConnectParams ConnectParams
+        {
+            get { return _connectParams; }
+            set
+            {
+                SetProperty(ref _connectParams, value);
+            }
+        }
+
         #region 侧边栏开关and内容属性
         private bool _isRightDrawerOpen;
         public bool IsRightDrawerOpen
@@ -54,6 +70,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
                 case "TCP": LoadTCPConnectView(); break;
                 case "RTU": LoadRTUConnectView(); break;
             }
+            _eventAggregator.GetEvent<ModbusConnectParamsRequestEvent>().Publish(ConnectParams);
         }
         #endregion
         #region 侧边栏内容加载
