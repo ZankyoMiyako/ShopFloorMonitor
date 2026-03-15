@@ -58,7 +58,7 @@
                            VerticalAlignment="Center"
                            Margin="10,0" />
                 <TextBox Width="100"
-                         Text="{Binding ConnectParams.RetryTime}"/>
+                         Text="{Binding ConnectParams.RetryCount}"/>
             </StackPanel>
             <DockPanel Grid.Row="4"
                        LastChildFill="False">
