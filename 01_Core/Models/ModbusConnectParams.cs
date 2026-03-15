@@ -23,8 +23,8 @@ namespace _01_Core.Models
         public string SerialPort { get; set; } = "COM1";
         public int BaudRate { get; set; } = 9600;
         public int DataBits { get; set; } = 8;
-        public StopBits StopBits { get; set; }=StopBits.One;
-        public Parity ParityBits { get; set; } = Parity.None;
+        public StopBits StopBit { get; set; }=StopBits.One;
+        public Parity ParityBit { get; set; } = Parity.None;
     }
     public enum ModbusConnectType
     {
