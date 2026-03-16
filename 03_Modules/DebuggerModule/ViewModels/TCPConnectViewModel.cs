@@ -18,7 +18,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
             DrawerControl = new DelegateCommand<string>(CloseDrawer);
             _eventAggregator.GetEvent<ModbusConnectParamsRequestEvent>().Subscribe(args =>
             {
-                ConnectParams = args;
+                ConnectParams = args.Clone();
             }, ThreadOption.UIThread);
         }
 
