@@ -130,18 +130,24 @@
                                    FontSize="15"
                                    Foreground="White"
                                    VerticalAlignment="Center" />
-                        <TextBox Margin="30,0,10,0"
-                                 Width="100" />
+                        <TextBox Margin="30,0,0,0"
+                                 Width="125"
+                                 Text="{Binding RequestParams.SlaveId}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="2"
                                 Orientation="Horizontal"
-                                Margin="10">
+                                Margin="10,10,0,10">
                         <TextBlock Text="功能码"
                                    FontSize="15"
                                    Foreground="White"
                                    VerticalAlignment="Center" />
-                        <ComboBox Margin="45,0,10,0"
-                                  Width="100" />
+                        <ComboBox Margin="45,0,0,0"
+                                  Width="125"
+                                  ItemsSource="{Binding FunctionCodeHelper.FunctionCodeOptions}"
+                                  SelectedValue="{Binding RequestParams.FunctionCode}"
+                                  DisplayMemberPath="Value"
+                                  SelectedValuePath="Key"
+                                  />
                     </StackPanel>
                     <StackPanel Grid.Row="3"
                                 Orientation="Horizontal"
@@ -150,8 +156,9 @@
                                    FontSize="15"
                                    Foreground="White"
                                    VerticalAlignment="Center" />
-                        <TextBox Margin="30,0,10,0"
-                                 Width="100" />
+                        <TextBox Margin="30,0,0,0"
+                                 Width="125"
+                                 Text="{Binding RequestParams.StartAddress}"/>
                     </StackPanel>
                     <StackPanel Grid.Row="4"
                                 Orientation="Horizontal"
@@ -161,7 +168,8 @@
                                    Foreground="White"
                                    VerticalAlignment="Center" />
                         <TextBox Margin="60,0,0,0"
-                                 Width="100" />
+                                 Width="125"
+                                 Text="{Binding RequestParams.Count}"/>
                     </StackPanel>
                     <Button Grid.Row="5"
                             Width="100"

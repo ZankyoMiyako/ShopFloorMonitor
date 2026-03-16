@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static _01_Core.Models.FunctionCodeHelper;
 
 namespace _03_Modules.DebuggerModule.ViewModels
 {
@@ -17,14 +18,16 @@ namespace _03_Modules.DebuggerModule.ViewModels
             _eventAggregator = eventAggregator;
             DrawerControl = new DelegateCommand<string>(OpenDrawer);
             ConnectParams = new ModbusConnectParams();
+            RequestParams = new ModbusRequestParams();
+            FunctionCodeHelper = new FunctionCodeHelper();
             _eventAggregator.GetEvent<DrawerControlEvent>().Subscribe(args =>
             {
                 IsRightDrawerOpen = args;
             }, ThreadOption.UIThread);
             _eventAggregator.GetEvent<ModbusConnectParamsUpdateEvent>().Subscribe(args =>
             {
-                ConnectParams=args;
-            },ThreadOption.UIThread);
+                ConnectParams = args;
+            }, ThreadOption.UIThread);
         }
         private ModbusConnectParams _connectParams;
         public ModbusConnectParams ConnectParams
@@ -92,5 +95,16 @@ namespace _03_Modules.DebuggerModule.ViewModels
             RightDrawerContent = _cachedTCPConnectView;
         }
         #endregion
+        private ModbusRequestParams _requestParams;
+
+        public ModbusRequestParams RequestParams
+        {
+            get { return _requestParams; }
+            set
+            {
+                SetProperty(ref _requestParams, value);
+            }
+        }
+        public FunctionCodeHelper FunctionCodeHelper { get;}
     }
 }
