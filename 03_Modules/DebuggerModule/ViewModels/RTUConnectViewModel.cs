@@ -14,7 +14,6 @@ namespace _03_Modules.DebuggerModule.ViewModels
         public RTUConnectViewModel(IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
-            RTUConnectOptions = new RTUConnectOptions();
             DrawerControl = new DelegateCommand<string>(CloseDrawer);
             _eventAggregator.GetEvent<ModbusConnectParamsRequestEvent>().Subscribe(args =>
             {
@@ -43,6 +42,6 @@ namespace _03_Modules.DebuggerModule.ViewModels
                 SetProperty(ref _connectParams, value);
             }
         }
-        public RTUConnectOptions RTUConnectOptions { get; set; }
+        public RTUConnectOptions RTUConnectOptions { get; } = new RTUConnectOptions();
     }
 }

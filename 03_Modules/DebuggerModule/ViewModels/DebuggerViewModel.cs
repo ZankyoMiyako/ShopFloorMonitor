@@ -17,9 +17,6 @@ namespace _03_Modules.DebuggerModule.ViewModels
         {
             _eventAggregator = eventAggregator;
             DrawerControl = new DelegateCommand<string>(OpenDrawer);
-            ConnectParams = new ModbusConnectParams();
-            RequestParams = new ModbusRequestParams();
-            FunctionCodeHelper = new FunctionCodeHelper();
             _eventAggregator.GetEvent<DrawerControlEvent>().Subscribe(args =>
             {
                 IsRightDrawerOpen = args;
@@ -29,7 +26,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
                 ConnectParams = args;
             }, ThreadOption.UIThread);
         }
-        private ModbusConnectParams _connectParams;
+        private ModbusConnectParams _connectParams= new ModbusConnectParams();
         public ModbusConnectParams ConnectParams
         {
             get { return _connectParams; }
@@ -95,7 +92,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
             RightDrawerContent = _cachedTCPConnectView;
         }
         #endregion
-        private ModbusRequestParams _requestParams;
+        private ModbusRequestParams _requestParams =new ModbusRequestParams();
 
         public ModbusRequestParams RequestParams
         {
@@ -105,6 +102,6 @@ namespace _03_Modules.DebuggerModule.ViewModels
                 SetProperty(ref _requestParams, value);
             }
         }
-        public FunctionCodeHelper FunctionCodeHelper { get;}
+        public FunctionCodeHelper FunctionCodeHelper { get;}= new FunctionCodeHelper();
     }
 }
