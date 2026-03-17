@@ -19,7 +19,7 @@ namespace _01_Core.Models
         public RTUConnectOptions()
         {
             var prots = SerialPort.GetPortNames();
-            ComPortOptions = prots.Length > 0 ? new ObservableCollection<string>(prots) : new ObservableCollection<string> { "COM3" };
+            ComPortOptions = prots.Length > 0 ? new ObservableCollection<string>(prots) : new ObservableCollection<string> { "COM1" };
         }
     }
 }

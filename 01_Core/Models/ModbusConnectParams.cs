@@ -20,7 +20,7 @@ namespace _01_Core.Models
         public int Port { get; set; } = 502;
 
         //===============RTU特有属性=========================
-        public string ComPort { get; set; } = "COM3";
+        public string ComPort { get; set; } = "COM1";
         public int BaudRate { get; set; } = 9600;
         public int DataBit { get; set; } = 8;
         public StopBits StopBit { get; set; }=StopBits.One;
