@@ -20,7 +20,7 @@ namespace _01_Core.Models
         public int Port { get; set; } = 502;
 
         //===============RTU特有属性=========================
-        public string SerialPort { get; set; } = "COM3";
+        public string ComPort { get; set; } = "COM3";
         public int BaudRate { get; set; } = 9600;
         public int DataBit { get; set; } = 8;
         public StopBits StopBit { get; set; }=StopBits.One;
@@ -35,7 +35,7 @@ namespace _01_Core.Models
                 RetryCount = this.RetryCount,
                 IpAdress = this.IpAdress,
                 Port = this.Port,
-                SerialPort = this.SerialPort,
+                ComPort = this.ComPort,
                 BaudRate = this.BaudRate,
                 DataBit = this.DataBit,
                 StopBit = this.StopBit,
