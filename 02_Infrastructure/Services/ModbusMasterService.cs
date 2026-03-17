@@ -44,28 +44,6 @@ namespace _02_Infrastructure.Services
                 }
                 else if(ConnectParams.ModbusConnectType==ModbusConnectType.RTU)
                 {
-                    string[] ports = SerialPort.GetPortNames();
-                    Debug.WriteLine("SerialPort.GetPortNames() 报告的端口:");
-                    foreach (string port in ports)
-                    {
-                        Debug.WriteLine($"  {port}");
-                    }
-                    try
-                    {
-                        using (var sp = new SerialPort("COM3"))
-                        {
-                            sp.BaudRate = 9600;
-                            sp.Open();
-                            Debug.WriteLine("COM3 打开成功！");
-                            Debug.WriteLine($"   IsOpen: {sp.IsOpen}");
-                            Debug.WriteLine($"   BaudRate: {sp.BaudRate}");
-                            sp.Close();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine($"打开 COM3 失败: {ex.Message}");
-                    }
                     _serialPort = new SerialPort(ConnectParams.ComPort,
                         ConnectParams.BaudRate,
                         ConnectParams.ParityBit,
