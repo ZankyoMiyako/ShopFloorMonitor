@@ -1,4 +1,5 @@
 ﻿using _01_Core.Events;
+using _01_Core.Interfaces;
 using _01_Core.Models;
 using _03_Modules.DebuggerModule.Views;
 using System;
@@ -13,10 +14,13 @@ namespace _03_Modules.DebuggerModule.ViewModels
     public class DebuggerViewModel : BindableBase
     {
         private IEventAggregator _eventAggregator;
-        public DebuggerViewModel(IEventAggregator eventAggregator)
+        private IModbusMasterService _masterService;
+        public DebuggerViewModel(IEventAggregator eventAggregator, IModbusMasterService masterService)
         {
             _eventAggregator = eventAggregator;
+            _masterService = masterService;
             DrawerControl = new DelegateCommand<string>(OpenDrawer);
+            IsConnectCmd = new DelegateCommand(Connect);
             _eventAggregator.GetEvent<DrawerControlEvent>().Subscribe(args =>
             {
                 IsRightDrawerOpen = args;
@@ -26,7 +30,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
                 ConnectParams = args;
             }, ThreadOption.UIThread);
         }
-        private ModbusConnectParams _connectParams= new ModbusConnectParams();
+        private ModbusConnectParams _connectParams = new ModbusConnectParams();
         public ModbusConnectParams ConnectParams
         {
             get { return _connectParams; }
@@ -92,7 +96,8 @@ namespace _03_Modules.DebuggerModule.ViewModels
             RightDrawerContent = _cachedTCPConnectView;
         }
         #endregion
-        private ModbusRequestParams _requestParams =new ModbusRequestParams();
+        #region 请求配置内容
+        private ModbusRequestParams _requestParams = new ModbusRequestParams();
 
         public ModbusRequestParams RequestParams
         {
@@ -102,6 +107,34 @@ namespace _03_Modules.DebuggerModule.ViewModels
                 SetProperty(ref _requestParams, value);
             }
         }
-        public FunctionCodeHelper FunctionCodeHelper { get;}= new FunctionCodeHelper();
+        public FunctionCodeHelper FunctionCodeHelper { get; } = new FunctionCodeHelper();
+        #endregion
+        #region 主站连接
+        private bool _isConnect;
+
+        public bool IsConnect
+        {
+            get { return _isConnect; }
+            set
+            {
+                SetProperty(ref _isConnect, value);
+            }
+        }
+        private async void Connect()
+        {
+            if (IsConnect == true)
+            {
+                IsConnect = false;
+                IsConnect = await _masterService.Connect(ConnectParams);
+            }
+            else
+            {
+                IsConnect = await _masterService.DisConnect();
+            }
+
+        }
+        
+        public DelegateCommand IsConnectCmd { get; set; }
+        #endregion
     }
 }
