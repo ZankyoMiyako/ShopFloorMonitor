@@ -1,4 +1,6 @@
-﻿using _03_Modules.DebuggerModule.ViewModels;
+﻿using _01_Core.Interfaces;
+using _02_Infrastructure.Services;
+using _03_Modules.DebuggerModule.ViewModels;
 using _03_Modules.DebuggerModule.Views;
 using _03_Modules.ViewModels;
 using _03_Modules.Views;
@@ -22,6 +24,8 @@ namespace _03_Modules
             containerRegistry.RegisterForNavigation<DebuggerView,DebuggerViewModel>();
             containerRegistry.RegisterForNavigation<TestView, TestViewModel>();
             containerRegistry.RegisterForNavigation<WorkshopView, WorkshopViewModel>();
+
+            containerRegistry.RegisterSingleton<IModbusMasterService, ModbusMasterService>();
         }
     }
 }
