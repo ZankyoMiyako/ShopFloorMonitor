@@ -23,12 +23,12 @@ namespace _03_Modules.DebuggerModule.ViewModels
 
         private void CloseDrawer(string obj)
         {
-            _eventAggregator.GetEvent<DrawerControlEvent>().Publish(false);
             if (obj == "确定")
             {
                 ConnectParams.ModbusConnectType = ModbusConnectType.RTU;
                 _eventAggregator.GetEvent<ModbusConnectParamsUpdateEvent>().Publish(ConnectParams);
             }
+            _eventAggregator.GetEvent<DrawerControlEvent>().Publish(false);
         }
 
         public DelegateCommand<string> DrawerControl { get; set; }

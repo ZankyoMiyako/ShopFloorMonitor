@@ -24,6 +24,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
             _eventAggregator.GetEvent<DrawerControlEvent>().Subscribe(args =>
             {
                 IsRightDrawerOpen = args;
+
             }, ThreadOption.UIThread);
             _eventAggregator.GetEvent<ModbusConnectParamsUpdateEvent>().Subscribe(args =>
             {
@@ -47,7 +48,12 @@ namespace _03_Modules.DebuggerModule.ViewModels
             get { return _isRightDrawerOpen; }
             set
             {
-                SetProperty(ref _isRightDrawerOpen, value);
+                if (SetProperty(ref _isRightDrawerOpen, value))
+                {
+                    if (!value)
+                        UpdateButtonStatus();
+
+                }
             }
         }
         private object _rightDrawerContent;
@@ -133,8 +139,43 @@ namespace _03_Modules.DebuggerModule.ViewModels
             }
 
         }
-        
+
         public DelegateCommand IsConnectCmd { get; set; }
+        #endregion
+        #region 协议选中逻辑优化
+        private bool _TcpButtonSelected = true;
+
+        public bool TcpButtonSelected
+        {
+            get { return _TcpButtonSelected; }
+            set
+            {
+                SetProperty(ref _TcpButtonSelected, value);
+            }
+        }
+        private bool _rtuButtonSelected;
+
+        public bool RtuButtonSelected
+        {
+            get { return _rtuButtonSelected; }
+            set
+            {
+                SetProperty(ref _rtuButtonSelected, value);
+            }
+        }
+        public void UpdateButtonStatus()
+        {
+            if (ConnectParams.ModbusConnectType == ModbusConnectType.TCP)
+            {
+                TcpButtonSelected = true;
+                RtuButtonSelected = false;
+            }
+            else if (ConnectParams.ModbusConnectType == ModbusConnectType.RTU)
+            {
+                TcpButtonSelected = false;
+                RtuButtonSelected = true;
+            }
+        }
         #endregion
     }
 }
