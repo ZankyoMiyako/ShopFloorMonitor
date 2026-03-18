@@ -23,7 +23,7 @@ namespace _02_Infrastructure.Sink
         {
             if (logEvent == null)
                 return;
-            var message = $"[{logEvent.Timestamp:G}]{logEvent.RenderMessage()}";
+            var message = $"[{logEvent.Timestamp:G}]    {logEvent.RenderMessage()}";
             if (_dispatcher.CheckAccess())
                 _logs.Add(message);
             else
