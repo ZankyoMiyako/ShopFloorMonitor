@@ -15,7 +15,7 @@ namespace _02_Infrastructure.Services
     public class LoggerService : ILoggerService,IDisposable
     {
         public string LoggerName { get; }
-        public ObservableCollection<string> Logs {  get; }
+        public ObservableCollection<string> Logs { get; } = new();
         private readonly ILogger _logger;
 
         public LoggerService(string loggerName)
@@ -28,7 +28,7 @@ namespace _02_Infrastructure.Services
                         .WriteTo.File($"logs/{LoggerName}/log-.txt", rollingInterval: RollingInterval.Day)
                         .CreateLogger();
             
-            _logger.Information($"{LoggerName}日志系统初始化成功");
+            _logger.Information($"{LoggerName}日志系统准备初始化");
         }
 
         public void LogInformation(string message)=>_logger.Information(message);
