@@ -12,9 +12,14 @@ namespace _03_Modules.DebuggerModule
 {
     public class DebuggerModuleInit : IModule
     {
+        private readonly ILoggerService _logger;
+        public DebuggerModuleInit(LoggerFactory factory)
+        {
+            _logger = factory.DebuggerModule;
+        }
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            
+            _logger.LogInformation($"日志系统初始化成功");
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
