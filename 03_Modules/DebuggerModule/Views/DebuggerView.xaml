@@ -11,18 +11,53 @@
              d:DesignWidth="800">
     <md:DrawerHost IsRightDrawerOpen="{Binding IsRightDrawerOpen}">
         <md:DrawerHost.RightDrawerContent>
-            <ContentControl Content="{Binding RightDrawerContent}" Width="250"/>
+            <ContentControl Content="{Binding RightDrawerContent}"
+                            Width="250" />
         </md:DrawerHost.RightDrawerContent>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
                 <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.43*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Border Background="Black"
+                            Grid.RowSpan="2" 
+                            Margin="10,10,0,10"
+                            CornerRadius="15">
+                        <Border.Effect>
+                            <DropShadowEffect />
+                        </Border.Effect>
+                    </Border>
+                    <Grid Grid.Row="0"
+                          Margin="20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Text="日志记录"
+                                   FontSize="20"
+                                   FontWeight="SemiBold" 
+                                   Foreground="White"
+                                   Margin="0,0,10,0"/>
+                        <Border Grid.Column="1" Height="1" Background="White"/>
+                    </Grid>
+                </Grid>
+            </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition  Height="auto" />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
                       Margin="20,0">
@@ -67,17 +102,17 @@
                                      IsChecked="{Binding TcpButtonSelected}"
                                      MinWidth="0"
                                      Width="61"
-                                     FontSize="15" 
+                                     FontSize="15"
                                      Command="{Binding DrawerControl}"
-                                     CommandParameter="TCP"/>
+                                     CommandParameter="TCP" />
                         <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}"
                                      Content="RTU"
                                      IsChecked="{Binding RtuButtonSelected}"
                                      MinWidth="0"
                                      Width="61"
                                      FontSize="15"
-                                     Command="{Binding DrawerControl}" 
-                                     CommandParameter="RTU"/>
+                                     Command="{Binding DrawerControl}"
+                                     CommandParameter="RTU" />
                     </StackPanel>
                     <StackPanel Grid.Row="2"
                                 Orientation="Horizontal"
@@ -91,7 +126,7 @@
                                       Height="30"
                                       Style="{StaticResource MaterialDesignSwitchSecondaryToggleButton}"
                                       IsChecked="{Binding IsConnect}"
-                                      Command="{Binding IsConnectCmd}"/>
+                                      Command="{Binding IsConnectCmd}" />
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="1"
@@ -135,7 +170,7 @@
                                    VerticalAlignment="Center" />
                         <TextBox Margin="30,0,0,0"
                                  Width="125"
-                                 Text="{Binding RequestParams.SlaveId}"/>
+                                 Text="{Binding RequestParams.SlaveId}" />
                     </StackPanel>
                     <StackPanel Grid.Row="2"
                                 Orientation="Horizontal"
@@ -149,8 +184,7 @@
                                   ItemsSource="{Binding FunctionCodeHelper.FunctionCodeOptions}"
                                   SelectedValue="{Binding RequestParams.FunctionCode}"
                                   DisplayMemberPath="Value"
-                                  SelectedValuePath="Key"
-                                  />
+                                  SelectedValuePath="Key" />
                     </StackPanel>
                     <StackPanel Grid.Row="3"
                                 Orientation="Horizontal"
@@ -161,7 +195,7 @@
                                    VerticalAlignment="Center" />
                         <TextBox Margin="30,0,0,0"
                                  Width="125"
-                                 Text="{Binding RequestParams.StartAddress}"/>
+                                 Text="{Binding RequestParams.StartAddress}" />
                     </StackPanel>
                     <StackPanel Grid.Row="4"
                                 Orientation="Horizontal"
@@ -172,7 +206,7 @@
                                    VerticalAlignment="Center" />
                         <TextBox Margin="60,0,0,0"
                                  Width="125"
-                                 Text="{Binding RequestParams.Count}"/>
+                                 Text="{Binding RequestParams.Count}" />
                     </StackPanel>
                     <Button Grid.Row="5"
                             Width="100"
