@@ -26,6 +26,7 @@ namespace _03_Modules
             containerRegistry.RegisterForNavigation<WorkshopView, WorkshopViewModel>();
 
             containerRegistry.RegisterSingleton<IModbusMasterService, ModbusMasterService>();
+            containerRegistry.RegisterSingleton<LoggerFactory>();
         }
     }
 }
