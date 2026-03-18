@@ -1,9 +1,11 @@
 ﻿using _01_Core.Events;
 using _01_Core.Interfaces;
 using _01_Core.Models;
+using _02_Infrastructure.Services;
 using _03_Modules.DebuggerModule.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,10 +17,12 @@ namespace _03_Modules.DebuggerModule.ViewModels
     {
         private IEventAggregator _eventAggregator;
         private IModbusMasterService _masterService;
-        public DebuggerViewModel(IEventAggregator eventAggregator, IModbusMasterService masterService)
+        private readonly ILoggerService _logger;
+        public DebuggerViewModel(IEventAggregator eventAggregator, IModbusMasterService masterService,LoggerFactory factory)
         {
             _eventAggregator = eventAggregator;
             _masterService = masterService;
+            _logger = factory.DebuggerModule;
             DrawerControl = new DelegateCommand<string>(OpenDrawer);
             IsConnectCmd = new DelegateCommand(Connect);
             _eventAggregator.GetEvent<DrawerControlEvent>().Subscribe(args =>
@@ -177,5 +181,6 @@ namespace _03_Modules.DebuggerModule.ViewModels
             }
         }
         #endregion
+        public ObservableCollection<string> Logs => _logger.Logs;
     }
 }
