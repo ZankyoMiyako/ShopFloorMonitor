@@ -1,4 +1,5 @@
 ﻿using _01_Core.Interfaces;
+using _02_Infrastructure.Services;
 using _03_Modules;
 using _03_Modules.DebuggerModule;
 using _03_Modules.DebuggerModule.ViewModels;
@@ -33,7 +34,7 @@ namespace _04_Shell
         }
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            
+            containerRegistry.RegisterSingleton<LoggerFactory>();
         }
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
