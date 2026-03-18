@@ -1,9 +1,11 @@
 ﻿using _01_Core.Interfaces;
 using _03_Modules;
+using _03_Modules.DebuggerModule;
 using _03_Modules.DebuggerModule.ViewModels;
 using _03_Modules.DebuggerModule.Views;
 using _03_Modules.ViewModels;
 using _03_Modules.Views;
+using _03_Modules.WorkshopModule;
 using _04_Shell.Views;
 using System.Configuration;
 using System.Data;
@@ -36,7 +38,8 @@ namespace _04_Shell
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             base.ConfigureModuleCatalog(moduleCatalog);
-            moduleCatalog.AddModule<ModuleInit>();
+            moduleCatalog.AddModule<DebuggerModuleInit>();
+            moduleCatalog.AddModule<WorkshopModuleInit>();
         }
     }
 

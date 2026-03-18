@@ -2,29 +2,24 @@
 using _02_Infrastructure.Services;
 using _03_Modules.DebuggerModule.ViewModels;
 using _03_Modules.DebuggerModule.Views;
-using _03_Modules.ViewModels;
-using _03_Modules.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _03_Modules
+namespace _03_Modules.DebuggerModule
 {
-    public class ModuleInit : IModule
+    public class DebuggerModuleInit : IModule
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            var regionManager= containerProvider.Resolve<IRegionManager>();
+            
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterForNavigation<DebuggerView,DebuggerViewModel>();
-            containerRegistry.RegisterForNavigation<TestView, TestViewModel>();
-            containerRegistry.RegisterForNavigation<WorkshopView, WorkshopViewModel>();
-
+            containerRegistry.RegisterForNavigation<DebuggerView, DebuggerViewModel>();
             containerRegistry.RegisterSingleton<IModbusMasterService, ModbusMasterService>();
             containerRegistry.RegisterSingleton<LoggerFactory>();
         }

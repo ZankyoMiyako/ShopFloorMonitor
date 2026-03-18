@@ -19,8 +19,4 @@
     <ProjectReference Include="..\05_SharedResources\99_SharedResources.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="WorkshopModule\" />
-  </ItemGroup>
-
 </Project>
