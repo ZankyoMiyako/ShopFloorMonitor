@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <RootNamespace>_02_Infrastructure</RootNamespace>
+    <UseWPF>true</UseWPF>  
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -11,6 +12,8 @@
     <PackageReference Include="NModbus" Version="3.0.81" />
     <PackageReference Include="NModbus.Serial" Version="3.0.81" />
     <PackageReference Include="Prism.Core" Version="9.0.537" />
+    <PackageReference Include="Serilog" Version="4.3.1" />
+    <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
