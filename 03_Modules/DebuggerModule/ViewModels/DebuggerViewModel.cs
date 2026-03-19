@@ -25,6 +25,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
             _logger = factory.DebuggerModule;
             DrawerControl = new DelegateCommand<string>(OpenDrawer);
             IsConnectCmd = new DelegateCommand(Connect);
+            CleanLogsCmd = new DelegateCommand(CleanLogs);
             _eventAggregator.GetEvent<DrawerControlEvent>().Subscribe(args =>
             {
                 IsRightDrawerOpen = args;
@@ -181,6 +182,13 @@ namespace _03_Modules.DebuggerModule.ViewModels
             }
         }
         #endregion
+        #region 日志相关
         public ObservableCollection<string> Logs => _logger.Logs;
+        public DelegateCommand CleanLogsCmd {  get; set; }
+        private void CleanLogs()
+        {
+            Logs.Clear();
+        }
+        #endregion
     }
 }
