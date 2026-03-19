@@ -7,8 +7,8 @@
              xmlns:local="clr-namespace:_03_Modules.DebuggerModule.Views"
              xmlns:prism="http://prismlibrary.com/"
              mc:Ignorable="d"
-             d:DesignHeight="450"
-             d:DesignWidth="800">
+             d:DesignHeight="636.66"
+             d:DesignWidth="1170">
     <md:DrawerHost IsRightDrawerOpen="{Binding IsRightDrawerOpen}">
         <md:DrawerHost.RightDrawerContent>
             <ContentControl Content="{Binding RightDrawerContent}"
@@ -24,6 +24,46 @@
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="0.43*" />
                 </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <Border Grid.RowSpan="2"
+                                Margin="10,0,10,10"
+                                Background="#94B7EB"
+                                CornerRadius="15">
+                            <Border.Effect>
+                                <DropShadowEffect />
+                            </Border.Effect>
+                        </Border>
+                        <StackPanel Grid.Row="0"
+                                    Margin="20,10"
+                                    Orientation="Horizontal">
+                            <TextBlock Text="序号"
+                                       Width="80"
+                                       FontSize="20"
+                                       FontWeight="SemiBold" />
+                            <TextBlock Text="地址"
+                                       Width="80"
+                                       FontSize="20"
+                                       FontWeight="SemiBold" />
+                            <TextBlock Text="名称"
+                                       Width="120"
+                                       FontSize="20"
+                                       FontWeight="SemiBold" />
+                            <TextBlock Text="数值"
+                                       Width="120"
+                                       FontSize="20"
+                                       FontWeight="SemiBold" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
@@ -62,17 +102,18 @@
                             <md:PackIcon Kind="CloseCircleOutline" />
                         </Button>
                     </Grid>
-                    <ListBox Grid.Row="1"
-                             ItemsSource="{Binding Logs}"
-                             Foreground="White"
-                             Margin="20,0" />
+                    <ScrollViewer Grid.Row="1"
+                                  Margin="20,0,20,20">
+                        <ItemsControl ItemsSource="{Binding Logs}"
+                                      Foreground="White" />
+                    </ScrollViewer>
                 </Grid>
             </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition />
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
                       Margin="20,0">
@@ -230,9 +271,9 @@
                             Margin="10,10,10,20" />
                 </Grid>
                 <md:PackIcon Grid.Row="2"
-                             Kind="ShieldBugOutline"
                              Width="150"
                              Height="150"
+                             Kind="ShieldBugOutline"
                              VerticalAlignment="Center"
                              HorizontalAlignment="Center" />
             </Grid>
