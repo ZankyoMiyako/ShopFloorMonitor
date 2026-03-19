@@ -24,6 +24,7 @@ namespace _03_Modules.DebuggerModule
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterInstance<ILoggerService>(_logger);
             containerRegistry.RegisterForNavigation<DebuggerView, DebuggerViewModel>();
             containerRegistry.RegisterSingleton<IModbusMasterService, ModbusMasterService>();
         }

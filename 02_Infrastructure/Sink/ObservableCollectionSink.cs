@@ -25,9 +25,9 @@ namespace _02_Infrastructure.Sink
                 return;
             var message = $"[{logEvent.Timestamp:G}]    {logEvent.RenderMessage()}";
             if (_dispatcher.CheckAccess())
-                _logs.Add(message);
+                _logs.Insert(0,message);
             else
-                _dispatcher.Invoke(() => _logs.Add(message));
+                _dispatcher.Invoke(() => _logs.Insert(0,message));
         }
     }
 }

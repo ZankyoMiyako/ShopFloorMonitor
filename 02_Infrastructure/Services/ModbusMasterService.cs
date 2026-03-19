@@ -24,10 +24,11 @@ namespace _02_Infrastructure.Services
         private IModbusMaster _master;
 
         private SerialPort _serialPort;
-
-        public ModbusMasterService()
+        private ILoggerService _logger;
+        public ModbusMasterService(ILoggerService logger)
         {
             _factory = new ModbusFactory();
+            _logger= logger;
         }
         public async Task<bool> Connect(ModbusConnectParams Params)
         {
@@ -53,15 +54,17 @@ namespace _02_Infrastructure.Services
                         ReadTimeout= ConnectParams.TimeOut,
                         WriteTimeout= ConnectParams.TimeOut
                     };
-                    _serialPort.Open();
+                     _serialPort.Open();
                     var adapter = new SerialPortAdapter(_serialPort);
-                    _master= _factory.CreateRtuMaster(adapter);
+                    _master= _factory.CreateRtuMaster(adapter);             
                 }
+                _logger.LogInformation($"{ConnectParams.ModbusConnectType} 连接成功");
                 IsConnected = true;
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                _logger.LogError($"{ConnectParams.ModbusConnectType} 连接失败:{ex.Message}",ex);
                 IsConnected = false;
                 _master = null;
                 _serialPort?.Close();
@@ -89,13 +92,14 @@ namespace _02_Infrastructure.Services
                     _serialPort = null;
                 }
                     _master = null;
+                _logger.LogInformation($"{ConnectParams.ModbusConnectType} 断开连接");
                 IsConnected = false;
                 return false;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                _logger.LogError($"{ConnectParams.ModbusConnectType} 断开连接异常:{ex.Message}",ex);
+                return true;
             }
         }
     }
