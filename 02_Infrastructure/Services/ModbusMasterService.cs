@@ -37,6 +37,7 @@ namespace _02_Infrastructure.Services
                 return true;
             try
             {
+                _logger.LogInformation($"{ConnectParams.ModbusConnectType} 请求连接中");
                 if (ConnectParams.ModbusConnectType == ModbusConnectType.TCP)
                 {
                     _tcpClient = new TcpClient();
