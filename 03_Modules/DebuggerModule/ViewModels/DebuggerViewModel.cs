@@ -18,7 +18,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
         private IEventAggregator _eventAggregator;
         private IModbusMasterService _masterService;
         private readonly ILoggerService _logger;
-        public DebuggerViewModel(IEventAggregator eventAggregator, IModbusMasterService masterService,LoggerFactory factory)
+        public DebuggerViewModel(IEventAggregator eventAggregator, IModbusMasterService masterService, LoggerFactory factory)
         {
             _eventAggregator = eventAggregator;
             _masterService = masterService;
@@ -131,18 +131,34 @@ namespace _03_Modules.DebuggerModule.ViewModels
                 SetProperty(ref _isConnect, value);
             }
         }
+        private bool _isConnecting;
+
+        public bool IsConnecting
+        {
+            get => _isConnecting;
+            set
+            {
+                if (SetProperty(ref _isConnecting, value))
+                {
+                    RaisePropertyChanged(nameof(CanOperate));  
+                }
+            }
+        }
+
+        public bool CanOperate => !IsConnecting; 
         private async void Connect()
         {
-            if (IsConnect == true)
+            bool ShouldConnect = IsConnect;
+            if (ShouldConnect == true)
             {
-                IsConnect = false;
+                IsConnecting = true;
                 IsConnect = await _masterService.Connect(ConnectParams);
+                IsConnecting = false;
             }
             else
             {
                 IsConnect = await _masterService.DisConnect();
             }
-
         }
 
         public DelegateCommand IsConnectCmd { get; set; }
@@ -184,7 +200,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
         #endregion
         #region 日志相关
         public ObservableCollection<string> Logs => _logger.Logs;
-        public DelegateCommand CleanLogsCmd {  get; set; }
+        public DelegateCommand CleanLogsCmd { get; set; }
         private void CleanLogs()
         {
             Logs.Clear();

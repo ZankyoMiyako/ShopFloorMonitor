@@ -182,7 +182,8 @@
                                       Height="30"
                                       Style="{StaticResource MaterialDesignSwitchSecondaryToggleButton}"
                                       IsChecked="{Binding IsConnect}"
-                                      Command="{Binding IsConnectCmd}" />
+                                      Command="{Binding IsConnectCmd}"
+                                      IsEnabled="{Binding CanOperate}"/>
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="1"
