@@ -65,12 +65,7 @@ namespace _02_Infrastructure.Services
             catch (Exception ex)
             {
                 _logger.LogError($"{ConnectParams.ModbusConnectType} 连接失败:{ex.Message}",ex);
-                IsConnected = false;
-                _master = null;
-                _serialPort?.Close();
-                _serialPort = null;
-                _tcpClient?.Close();
-                _tcpClient = null;
+                await CleanAsync();
                 return false;
             }
         }
@@ -81,19 +76,8 @@ namespace _02_Infrastructure.Services
                 return false;
             try
             {
-                if (ConnectParams.ModbusConnectType == ModbusConnectType.TCP)
-                {
-                    _tcpClient?.Close();
-                    _tcpClient = null;
-                }
-                else if (ConnectParams.ModbusConnectType == ModbusConnectType.RTU)
-                {
-                    _serialPort?.Close();
-                    _serialPort = null;
-                }
-                    _master = null;
-                _logger.LogInformation($"{ConnectParams.ModbusConnectType} 断开连接");
-                IsConnected = false;
+                await CleanAsync();
+                _logger.LogInformation($"{ConnectParams.ModbusConnectType} 断开连接成功");
                 return false;
             }
             catch (Exception ex)
@@ -101,6 +85,22 @@ namespace _02_Infrastructure.Services
                 _logger.LogError($"{ConnectParams.ModbusConnectType} 断开连接异常:{ex.Message}",ex);
                 return true;
             }
+        }
+        public async Task CleanAsync()
+        {
+                _master = null;
+            if (ConnectParams.ModbusConnectType == ModbusConnectType.TCP)
+            {
+                _tcpClient?.Dispose();
+                _tcpClient = null;
+            }
+            else if (ConnectParams.ModbusConnectType == ModbusConnectType.RTU)
+            {
+                _serialPort?.Dispose();
+                _serialPort = null;
+            }
+            IsConnected = false;
+            await Task.CompletedTask;
         }
     }
 }
