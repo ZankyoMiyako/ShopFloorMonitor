@@ -18,15 +18,18 @@ namespace _03_Modules.DebuggerModule.ViewModels
     {
         private IEventAggregator _eventAggregator;
         private IModbusMasterService _masterService;
+        private IModbusPointsService _modbusPoints;
         private readonly ILoggerService _logger;
-        public DebuggerViewModel(IEventAggregator eventAggregator, IModbusMasterService masterService, LoggerFactory factory)
+        public DebuggerViewModel(IEventAggregator eventAggregator, IModbusMasterService masterService,IModbusPointsService pointsService,LoggerFactory factory)
         {
             _eventAggregator = eventAggregator;
             _masterService = masterService;
+            _modbusPoints = pointsService;
             _logger = factory.DebuggerModule;
             DrawerControl = new DelegateCommand<string>(OpenDrawer);
             IsConnectCmd = new DelegateCommand(Connect);
             CleanLogsCmd = new DelegateCommand(CleanLogs);
+            GenerateTableCommand = new DelegateCommand(GenerateTable);
             _eventAggregator.GetEvent<DrawerControlEvent>().Subscribe(args =>
             {
                 IsRightDrawerOpen = args;
@@ -35,8 +38,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
             _eventAggregator.GetEvent<ModbusConnectParamsUpdateEvent>().Subscribe(args =>
             {
                 ConnectParams = args;
-            }, ThreadOption.UIThread);
-            CreateTestDatas();
+            }, ThreadOption.UIThread);           
         }
         private ModbusConnectParams _connectParams = new ModbusConnectParams();
         public ModbusConnectParams ConnectParams
@@ -208,19 +210,23 @@ namespace _03_Modules.DebuggerModule.ViewModels
             Logs.Clear();
         }
         #endregion
-        #region 数据面板测试
-      public class TestData
+        #region 生成看板命令
+        public DelegateCommand GenerateTableCommand {  get; set; }
+        #endregion
+        #region 测试点表生成接口
+        private ObservableCollection<ModbusPoints> _pointTable;
+
+        public ObservableCollection<ModbusPoints> PointTable
         {
-            public int Index { get; set; }
-            public int Address { get; set; }
-            public string Name { get; set; }
-            public int Data { get; set; }
+            get { return _pointTable; }
+            set {
+                SetProperty(ref _pointTable, value);
+            }
         }
-        public ObservableCollection<TestData> TestDatas { get; set; }
-        private void CreateTestDatas()
+        private void GenerateTable()
         {
-            TestDatas=new ObservableCollection<TestData>();
-            TestDatas.Add(new TestData { Index = 1, Address = 0, Name = "TestData", Data = 111 });
+            _modbusPoints.RequestParams = RequestParams;
+            PointTable= _modbusPoints.GeneratePointsTable();
         }
         #endregion
     }
