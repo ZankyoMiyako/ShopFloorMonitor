@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static _01_Core.Models.FunctionCodeHelper;
+using static _03_Modules.DebuggerModule.ViewModels.DebuggerViewModel;
 
 namespace _03_Modules.DebuggerModule.ViewModels
 {
@@ -35,6 +36,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
             {
                 ConnectParams = args;
             }, ThreadOption.UIThread);
+            CreateTestDatas();
         }
         private ModbusConnectParams _connectParams = new ModbusConnectParams();
         public ModbusConnectParams ConnectParams
@@ -204,6 +206,21 @@ namespace _03_Modules.DebuggerModule.ViewModels
         private void CleanLogs()
         {
             Logs.Clear();
+        }
+        #endregion
+        #region 数据面板测试
+      public class TestData
+        {
+            public int Index { get; set; }
+            public int Address { get; set; }
+            public string Name { get; set; }
+            public int Data { get; set; }
+        }
+        public ObservableCollection<TestData> TestDatas { get; set; }
+        private void CreateTestDatas()
+        {
+            TestDatas=new ObservableCollection<TestData>();
+            TestDatas.Add(new TestData { Index = 1, Address = 0, Name = "TestData", Data = 111 });
         }
         #endregion
     }

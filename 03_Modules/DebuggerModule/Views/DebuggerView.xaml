@@ -24,10 +24,11 @@
                     <RowDefinition Height="1*" />
                     <RowDefinition Height="0.43*" />
                 </Grid.RowDefinitions>
+                <!--数据面板部分-->
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto"/>
-                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
                         <Grid.RowDefinitions>
@@ -46,24 +47,62 @@
                                     Margin="20,10"
                                     Orientation="Horizontal">
                             <TextBlock Text="序号"
-                                       Width="80"
+                                       Width="60"
                                        FontSize="20"
-                                       FontWeight="SemiBold" />
+                                       FontWeight="SemiBold" 
+                                       Margin="10,0"/>
                             <TextBlock Text="地址"
-                                       Width="80"
+                                       Width="60"
                                        FontSize="20"
-                                       FontWeight="SemiBold" />
+                                       FontWeight="SemiBold"
+                                       Margin="10,0" />
                             <TextBlock Text="名称"
-                                       Width="120"
+                                       Width="130"
                                        FontSize="20"
-                                       FontWeight="SemiBold" />
+                                       FontWeight="SemiBold"
+                                       Margin="10,0" />
                             <TextBlock Text="数值"
-                                       Width="120"
+                                       Width="100"
                                        FontSize="20"
                                        FontWeight="SemiBold" />
                         </StackPanel>
+                        <ItemsControl Grid.Row="1"
+                                      ItemsSource="{Binding TestDatas}"
+                                      Margin="20,0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderThickness="0,1" BorderBrush="AliceBlue" Padding="0,5">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Index}"
+                                                       Width="60"
+                                                       FontSize="15"
+                                                       VerticalAlignment="Center"
+                                                       Margin="10,0"
+                                                       FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding Address}"
+                                                       Width="60"
+                                                       FontSize="15"
+                                                       VerticalAlignment="Center"
+                                                       Margin="10,0"
+                                                       FontWeight="SemiBold" />
+                                            <TextBox Text="{Binding Name}"
+                                                     Width="120"
+                                                     Margin="10,0,20,0"
+                                                     FontSize="15"
+                                                     VerticalAlignment="Center"
+                                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                     Padding="4" />
+                                            <Button Content="{Binding Data}"
+                                                    Width="60"
+                                                    FontSize="15" />
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                     </Grid>
                 </Grid>
+                <!--日志部分-->
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
@@ -113,7 +152,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0"
                       Margin="20,0">
@@ -183,7 +222,7 @@
                                       Style="{StaticResource MaterialDesignSwitchSecondaryToggleButton}"
                                       IsChecked="{Binding IsConnect}"
                                       Command="{Binding IsConnectCmd}"
-                                      IsEnabled="{Binding CanOperate}"/>
+                                      IsEnabled="{Binding CanOperate}" />
                     </StackPanel>
                 </Grid>
                 <Grid Grid.Row="1"
