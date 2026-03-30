@@ -27,6 +27,7 @@ namespace _03_Modules.DebuggerModule
             containerRegistry.RegisterInstance<ILoggerService>(_logger);
             containerRegistry.RegisterForNavigation<DebuggerView, DebuggerViewModel>();
             containerRegistry.RegisterSingleton<IModbusMasterService, ModbusMasterService>();
+            containerRegistry.RegisterSingleton<IModbusPointsService, ModbusPointsService>();
         }
     }
 }
