@@ -5,6 +5,7 @@ using NModbus.Device;
 using NModbus.Serial;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO.Ports;
 using System.Linq;
@@ -28,7 +29,7 @@ namespace _02_Infrastructure.Services
         public ModbusMasterService(ILoggerService logger)
         {
             _factory = new ModbusFactory();
-            _logger= logger;
+            _logger = logger;
         }
         public async Task<bool> Connect(ModbusConnectParams Params)
         {
@@ -44,7 +45,7 @@ namespace _02_Infrastructure.Services
                     await _tcpClient.ConnectAsync(ConnectParams.IpAdress, ConnectParams.Port);
                     _master = _factory.CreateMaster(_tcpClient);
                 }
-                else if(ConnectParams.ModbusConnectType==ModbusConnectType.RTU)
+                else if (ConnectParams.ModbusConnectType == ModbusConnectType.RTU)
                 {
                     _serialPort = new SerialPort(ConnectParams.ComPort,
                         ConnectParams.BaudRate,
@@ -52,12 +53,12 @@ namespace _02_Infrastructure.Services
                         ConnectParams.DataBit,
                         ConnectParams.StopBit)
                     {
-                        ReadTimeout= ConnectParams.TimeOut,
-                        WriteTimeout= ConnectParams.TimeOut
+                        ReadTimeout = ConnectParams.TimeOut,
+                        WriteTimeout = ConnectParams.TimeOut
                     };
-                     _serialPort.Open();
+                    _serialPort.Open();
                     var adapter = new SerialPortAdapter(_serialPort);
-                    _master= _factory.CreateRtuMaster(adapter);             
+                    _master = _factory.CreateRtuMaster(adapter);
                 }
                 _logger.LogInformation($"{ConnectParams.ModbusConnectType} 连接成功");
                 IsConnected = true;
@@ -65,7 +66,7 @@ namespace _02_Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"{ConnectParams.ModbusConnectType} 连接失败:{ex.Message}",ex);
+                _logger.LogError($"{ConnectParams.ModbusConnectType} 连接失败:{ex.Message}", ex);
                 await CleanAsync();
                 return false;
             }
@@ -83,13 +84,13 @@ namespace _02_Infrastructure.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError($"{ConnectParams.ModbusConnectType} 断开连接异常:{ex.Message}",ex);
+                _logger.LogError($"{ConnectParams.ModbusConnectType} 断开连接异常:{ex.Message}", ex);
                 return true;
             }
         }
         public async Task CleanAsync()
         {
-                _master = null;
+            _master = null;
             if (ConnectParams.ModbusConnectType == ModbusConnectType.TCP)
             {
                 _tcpClient?.Dispose();
@@ -102,6 +103,38 @@ namespace _02_Infrastructure.Services
             }
             IsConnected = false;
             await Task.CompletedTask;
+        }
+        private readonly object _registersLock = new object();
+        private ObservableCollection<ModbusPoints> _pointsTable;
+        private ModbusRequestParams _requestParams;
+        private int _intercalMS;
+        private Action<ModbusPoints, string> _updateCallBack;
+        private CancellationTokenSource _cts;
+        public void StartPolling(ModbusRequestParams requestParams, ObservableCollection<ModbusPoints> PointsTable, int IntervalMs, Action<ModbusPoints, string> UpdateCallBack)
+        {
+            StopPolling();
+            lock (_registersLock)
+            {
+                _pointsTable = PointsTable;
+            }
+            _requestParams = requestParams;
+            _intercalMS = IntervalMs;
+            _updateCallBack = UpdateCallBack;
+            _cts = new CancellationTokenSource();
+            Task.Run(() =>
+            {
+                Polling(_cts.Token);
+            });
+        }
+
+        private async Task Polling(CancellationToken token)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void StopPolling()
+        {
+            _cts.Cancel();
         }
     }
 }
