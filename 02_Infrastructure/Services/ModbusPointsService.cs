@@ -11,18 +11,18 @@ namespace _02_Infrastructure.Services
 {
     public class ModbusPointsService : IModbusPointsService
     {
-        public ModbusRequestParams RequestParams {  get; set; }
-        public ObservableCollection<ModbusPoints> PointsTable { get; set; }
-
-        public ObservableCollection<ModbusPoints> GeneratePointsTable()
+        private ModbusRequestParams _requestParams;
+        private ObservableCollection<ModbusPoints> PointsTable;
+        public ObservableCollection<ModbusPoints> GeneratePointsTable(ModbusRequestParams requestParams)
         {
+            _requestParams= requestParams;
             PointsTable = new ObservableCollection<ModbusPoints>();
-            for (int i = 0; i < RequestParams.Count; i++)
+            for (int i = 0; i < _requestParams.Count; i++)
             {
                 PointsTable.Add(new ModbusPoints
                 {
                     Index = i + 1,
-                    Address = RequestParams.StartAddress + i,
+                    Address = _requestParams.StartAddress + i,
                     Name = $"寄存器{i + 1}",
                     Value = 0
                 });

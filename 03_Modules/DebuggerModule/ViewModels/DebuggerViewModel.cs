@@ -225,8 +225,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
         }
         private void GenerateTable()
         {
-            _modbusPoints.RequestParams = RequestParams;
-            PointTable= _modbusPoints.GeneratePointsTable();
+            PointTable= _modbusPoints.GeneratePointsTable(RequestParams);
         }
         #endregion
     }

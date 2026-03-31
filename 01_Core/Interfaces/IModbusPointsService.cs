@@ -10,8 +10,6 @@ namespace _01_Core.Interfaces
 {
     public interface IModbusPointsService
     {
-        ModbusRequestParams RequestParams { get; set; }
-        ObservableCollection<ModbusPoints> PointsTable { get; }
-        ObservableCollection<ModbusPoints> GeneratePointsTable();
+        ObservableCollection<ModbusPoints> GeneratePointsTable(ModbusRequestParams requestParams);
     }
 }
