@@ -78,6 +78,7 @@ namespace _02_Infrastructure.Services
         {
             if (IsConnected == false)
                 return false;
+
             try
             {
                 await CleanAsync();
@@ -131,6 +132,7 @@ namespace _02_Infrastructure.Services
         }
         private async Task Polling(CancellationToken token)
         {
+            _logger.LogInformation("开始轮询");
             while (!_cts.Token.IsCancellationRequested)
             {
                 if (!IsConnected || _master == null)
@@ -138,12 +140,11 @@ namespace _02_Infrastructure.Services
                     _currentReconnectAttempts++;
                     if (_currentReconnectAttempts > ConnectParams.RetryCount)
                     {
-                        Debug.WriteLine("已超过最大重连次数");
+                        _logger.LogWarning("已超过最大重连次数");
                         StopPolling();
-                        await DisConnect();
                         return;
                     }
-                    Debug.WriteLine($"开始尝试第{_currentReconnectAttempts}次重连");
+                    _logger.LogInformation($"开始尝试第{_currentReconnectAttempts}次重连");
                     if (await Connect(ConnectParams))
                     {
                         _currentReconnectAttempts = 0;
@@ -165,7 +166,7 @@ namespace _02_Infrastructure.Services
                 }
                 catch (Exception)
                 {
-                    Debug.WriteLine("读取异常");
+                    _logger.LogError("读取异常");
                     await DisConnect();
                 }
                 await Task.Delay(_intercalMS, token);
