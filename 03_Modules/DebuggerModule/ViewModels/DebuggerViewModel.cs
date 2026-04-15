@@ -228,13 +228,16 @@ namespace _03_Modules.DebuggerModule.ViewModels
         private void GenerateTable()
         {
             PointTable = _modbusPoints.GeneratePointsTable(RequestParams);
-            _masterService.StartPolling(RequestParams, PointTable, 500, (reg, value) =>
+            if (IsConnect)
             {
-                Application.Current.Dispatcher.Invoke(() =>
+                _masterService.StartPolling(RequestParams, PointTable, 500, (reg, value) =>
                 {
-                    reg.Value = value;
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        reg.Value = value;
+                    });
                 });
-            });
+            }
         }
         #endregion
     }
