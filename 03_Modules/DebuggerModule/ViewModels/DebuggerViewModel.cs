@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using static _01_Core.Models.FunctionCodeHelper;
 using static _03_Modules.DebuggerModule.ViewModels.DebuggerViewModel;
 
@@ -20,7 +21,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
         private IModbusMasterService _masterService;
         private IModbusPointsService _modbusPoints;
         private readonly ILoggerService _logger;
-        public DebuggerViewModel(IEventAggregator eventAggregator, IModbusMasterService masterService,IModbusPointsService pointsService,LoggerFactory factory)
+        public DebuggerViewModel(IEventAggregator eventAggregator, IModbusMasterService masterService, IModbusPointsService pointsService, LoggerFactory factory)
         {
             _eventAggregator = eventAggregator;
             _masterService = masterService;
@@ -38,7 +39,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
             _eventAggregator.GetEvent<ModbusConnectParamsUpdateEvent>().Subscribe(args =>
             {
                 ConnectParams = args;
-            }, ThreadOption.UIThread);           
+            }, ThreadOption.UIThread);
         }
         private ModbusConnectParams _connectParams = new ModbusConnectParams();
         public ModbusConnectParams ConnectParams
@@ -144,12 +145,12 @@ namespace _03_Modules.DebuggerModule.ViewModels
             {
                 if (SetProperty(ref _isConnecting, value))
                 {
-                    RaisePropertyChanged(nameof(CanOperate));  
+                    RaisePropertyChanged(nameof(CanOperate));
                 }
             }
         }
 
-        public bool CanOperate => !IsConnecting; 
+        public bool CanOperate => !IsConnecting;
         private async void Connect()
         {
             bool ShouldConnect = IsConnect;
@@ -211,7 +212,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
         }
         #endregion
         #region 生成看板命令
-        public DelegateCommand GenerateTableCommand {  get; set; }
+        public DelegateCommand GenerateTableCommand { get; set; }
         #endregion
         #region 测试点表生成接口
         private ObservableCollection<ModbusPoints> _pointTable;
@@ -219,13 +220,21 @@ namespace _03_Modules.DebuggerModule.ViewModels
         public ObservableCollection<ModbusPoints> PointTable
         {
             get { return _pointTable; }
-            set {
+            set
+            {
                 SetProperty(ref _pointTable, value);
             }
         }
         private void GenerateTable()
         {
-            PointTable= _modbusPoints.GeneratePointsTable(RequestParams);
+            PointTable = _modbusPoints.GeneratePointsTable(RequestParams);
+            _masterService.StartPolling(RequestParams, PointTable, 500, (reg, value) =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    reg.Value = value;
+                });
+            });
         }
         #endregion
     }
