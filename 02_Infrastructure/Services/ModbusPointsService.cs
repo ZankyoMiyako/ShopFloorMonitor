@@ -24,7 +24,7 @@ namespace _02_Infrastructure.Services
                     Index = i + 1,
                     Address = _requestParams.StartAddress + i,
                     Name = $"寄存器{i + 1}",
-                    Value = 0
+                    Value = ""
                 });
             }
             return PointsTable;
