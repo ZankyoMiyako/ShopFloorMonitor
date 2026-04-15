@@ -163,6 +163,7 @@ namespace _03_Modules.DebuggerModule.ViewModels
             else
             {
                 IsConnect = await _masterService.DisConnect();
+                _masterService.StopPolling();
             }
         }
 
