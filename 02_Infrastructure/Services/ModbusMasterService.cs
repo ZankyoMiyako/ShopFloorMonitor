@@ -124,9 +124,9 @@ namespace _02_Infrastructure.Services
             _requestParams = requestParams;
             _intercalMS = IntervalMs;
             _updateCallBack = UpdateCallBack;
-            Task.Run(() =>
+            Task.Run(async () =>
             {
-                Polling(_cts.Token);
+                await Polling(_cts.Token);
             });
         }
         private async Task Polling(CancellationToken token)
@@ -140,7 +140,7 @@ namespace _02_Infrastructure.Services
                     {
                         Debug.WriteLine("已超过最大重连次数");
                         StopPolling();
-                        DisConnect();
+                        await DisConnect();
                         return;
                     }
                     Debug.WriteLine($"开始尝试第{_currentReconnectAttempts}次重连");
@@ -166,7 +166,7 @@ namespace _02_Infrastructure.Services
                 catch (Exception)
                 {
                     Debug.WriteLine("读取异常");
-                    DisConnect();
+                    await DisConnect();
                 }
                 await Task.Delay(_intercalMS, token);
             }
