@@ -16,5 +16,7 @@ namespace _02_Infrastructure.Services
             return _logger.GetOrAdd(loggerName,n=>new LoggerService(loggerName));
         }
         public ILoggerService DebuggerModule => GetLogger(nameof(DebuggerModule));
+
+        public ILoggerService WorkShopModule => GetLogger(nameof(WorkShopModule));
     }
 }

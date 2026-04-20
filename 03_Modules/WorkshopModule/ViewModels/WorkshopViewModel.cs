@@ -1,4 +1,6 @@
-﻿using _01_Core.Models;
+﻿using _01_Core.Interfaces;
+using _01_Core.Models;
+using _02_Infrastructure.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,9 +12,12 @@ namespace _03_Modules.ViewModels
 {
     public class WorkshopViewModel : BindableBase
     {
-        public WorkshopViewModel()
+        private ILoggerService _logger;
+        public WorkshopViewModel(LoggerFactory factory)
         {
             CreateDevices();
+            _logger = factory.WorkShopModule;
+            CleanLogsCmd=new DelegateCommand(CleanLogs);
         }
 
         private void CreateDevices()
@@ -36,6 +41,13 @@ namespace _03_Modules.ViewModels
                 SetProperty(ref _devices, value);
             }
         }
-
+        #region 日志相关
+        public ObservableCollection<string> Logs => _logger.Logs;
+        public DelegateCommand CleanLogsCmd { get; set; }
+        private void CleanLogs()
+        {
+            Logs.Clear();
+        }
+        #endregion
     }
 }
