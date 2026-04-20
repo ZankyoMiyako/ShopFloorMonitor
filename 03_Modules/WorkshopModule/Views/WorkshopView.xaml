@@ -6,75 +6,86 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:_03_Modules.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             d:DesignHeight="636.66"
-             d:DesignWidth="1170"
+             d:DesignHeight="500"
+             d:DesignWidth="800"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <converters:ColumnToXConverter x:Key="ColumnToXConverter" />
-        <converters:RowToYConverter x:Key="RowToYConverter" />
-    </UserControl.Resources>
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Viewbox  RenderOptions.BitmapScalingMode="NearestNeighbor">
-            <Grid Grid.Column="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Border Grid.RowSpan="2"
-                        Margin="0,0,0,100"
-                        Background="#34406b"
-                        CornerRadius="15">
-                    <Border.Effect>
-                        <DropShadowEffect />
-                    </Border.Effect>
-                </Border>
-                <Grid Grid.Row="0"
-                      Margin="15">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0"
-                               FontSize="25"
-                               FontWeight="SemiBold"
-                               Foreground="AliceBlue"
-                               Text="车间"
-                               Margin="0,0,10,0" />
-                    <Border Grid.Column="1"
-                            Background="White"
-                            Height="2"
-                            VerticalAlignment="Center" />
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border Background="#34406b"
+                    CornerRadius="15"
+                    Margin="0,0,0,10"
+                    Grid.Row="0">
+                <Border.Effect>
+                    <DropShadowEffect />
+                </Border.Effect>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0"
+                          Margin="15,15,15,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   FontSize="25"
+                                   FontWeight="SemiBold"
+                                   Foreground="AliceBlue"
+                                   Text="车间"
+                                   Margin="0,0,10,0" />
+                        <Border Grid.Column="1"
+                                Background="White"
+                                Height="2"
+                                VerticalAlignment="Center" />
+                    </Grid>
+                    <Viewbox Stretch="Uniform"
+                             RenderOptions.BitmapScalingMode="NearestNeighbor"
+                             Grid.Row="1">
+                        <!-- 设备列表 - 2列 -->
+                        <ItemsControl Grid.Row="1"
+                                      ItemsSource="{Binding Devices}"
+                                      Margin="10">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <UniformGrid Columns="2" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <controls:MachineBlock Device="{Binding}"
+                                                           Margin="10" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Viewbox>
                 </Grid>
-                <ItemsControl Grid.Row="1"
-                              ItemsSource="{Binding Devices}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <Canvas Width="400"
-                                    Height="700" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <controls:MachineBlock Device="{Binding}" />
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                    <ItemsControl.ItemContainerStyle>
-                        <Style>
-                            <Setter Property="Canvas.Left"
-                                    Value="{Binding Column, Converter={StaticResource ColumnToXConverter}}" />
-                            <Setter Property="Canvas.Top"
-                                    Value="{Binding Row, Converter={StaticResource RowToYConverter}}" />
-                        </Style>
-                    </ItemsControl.ItemContainerStyle>
-                </ItemsControl>
-            </Grid>
-        </Viewbox>
-
+            </Border>
+            <Border Background="#34406b"
+                    Grid.Row="1"
+                    CornerRadius="15"
+                    Margin="0,0,0,5">
+                <StackPanel Grid.Row="1"
+                            Orientation="Horizontal"
+                            Margin="10"
+                            HorizontalAlignment="Center">
+                    <Button Width="100"
+                            Content="启动" />
+                    <Button Width="100"
+                            Margin="60,0,0,0"
+                            Content="急停" />
+                </StackPanel>
+            </Border>
+        </Grid>
         <Grid Grid.Column="1"
               Margin="20"
               Background="Azure">
