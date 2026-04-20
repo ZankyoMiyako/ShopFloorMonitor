@@ -19,7 +19,7 @@ namespace _03_Modules.DebuggerModule
         }
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            _logger.LogInformation($"日志系统初始化成功");
+            _logger.LogInformation($"调试器日志系统初始化成功");
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
