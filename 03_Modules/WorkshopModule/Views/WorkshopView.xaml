@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:_03_Modules.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="500"
              d:DesignWidth="800"
              mc:Ignorable="d">
@@ -74,25 +75,78 @@
                     Grid.Row="1"
                     CornerRadius="15"
                     Margin="0,0,0,5">
+                <Border.Effect>
+                    <DropShadowEffect />
+                </Border.Effect>
                 <StackPanel Grid.Row="1"
                             Orientation="Horizontal"
                             Margin="10"
                             HorizontalAlignment="Center">
                     <Button Width="100"
-                            Content="启动" />
+                            Content="总启动" />
                     <Button Width="100"
                             Margin="60,0,0,0"
-                            Content="急停" />
+                            Content="总急停" />
                 </StackPanel>
             </Border>
         </Grid>
         <Grid Grid.Column="1"
-              Margin="20"
-              Background="Azure">
-            <TextBlock HorizontalAlignment="Center"
-                       VerticalAlignment="Center"
-                       FontSize="20"
-                       Text="未定功能" />
+              Margin="10,5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="0.43*" />
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0"
+                    Background="Azure">
+                <TextBlock HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           Text="未定功能"/>
+            </Border>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Border Grid.RowSpan="2"
+                        Margin="10,10,0,0"
+                        Background="Black"
+                        CornerRadius="15">
+                    <Border.Effect>
+                        <DropShadowEffect />
+                    </Border.Effect>
+                </Border>
+                <Grid Grid.Row="0"
+                      Margin="20,20,10,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Margin="0,0,10,0"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               Foreground="White"
+                               Text="日志记录" />
+                    <Border Grid.Column="1"
+                            Height="1"
+                            Background="White" />
+                    <Button Grid.Column="2"
+                            Width="25"
+                            Height="25"
+                            Margin="10,0,0,0"
+                            Command="{Binding CleanLogsCmd}"
+                            Style="{StaticResource MaterialDesignIconButton}">
+                        <md:PackIcon Kind="CloseCircleOutline" />
+                    </Button>
+                </Grid>
+                <ScrollViewer Grid.Row="1"
+                              Margin="20,0,20,20">
+                    <ItemsControl Foreground="White"
+                                  ItemsSource="{Binding Logs}" />
+                </ScrollViewer>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>
